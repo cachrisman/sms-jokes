@@ -16,4 +16,4 @@
 1. In a separate terminal window, run `ngrok http 5000` and copy the generated url into your Twilio dashboard under the messaging section of the phone number you want to use as a webhook.
 1. You can also install and run [`now`](https://now.sh) to deploy the app and use the given now.sh url in your Twilio dashboard.
 
-Viola! You can now send a text message with a sport name (as defined in Contentful) to your Twilio number and you will be sent a random joke about that sport in reply!
+Viola! You can now send a text message with a sport name (as defined in Contentful) to your Twilio number and you will be sent a random joke pulled from Contentful about that sport in reply!
