@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const _contentful = require('contentful')
@@ -5,20 +6,20 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse
 
 const contentful = _contentful.createClient({
   space: process.env.space,
-  accessToken: process.env.accessToken
+  accessToken: process.env.cdaToken
 })
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.port || 5000))
 
 app.post('/sms', function(req, res) {
   console.log (req.body)
 
-  // Sender's phone number
+  // source phone number
   let source_number = req.body.From
-  // Receiver's phone number - Plivo number
+  // destination phone number
   let destination_number = req.body.To
   // The text which was received
   let body = req.body.Body
