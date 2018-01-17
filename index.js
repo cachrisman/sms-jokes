@@ -5,8 +5,8 @@ const _contentful = require('contentful')
 const MessagingResponse = require('twilio').twiml.MessagingResponse
 
 const contentful = _contentful.createClient({
-  space: process.env.space,
-  accessToken: process.env.cdaToken
+  space: process.env.SPACE,
+  accessToken: process.env.CDA_TOKEN
 })
 
 const app = express()
@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.set('port', (process.env.port || 5000))
 
 app.post('/sms', function(req, res) {
-  console.log (req.body)
 
   // source phone number
   let source_number = req.body.From
@@ -29,15 +28,26 @@ app.post('/sms', function(req, res) {
     'fields.sport.sys.contentType.sys.id': 'sport',
     'fields.sport.fields.name[match]': body
   }).then((response) => {
-    console.log(JSON.stringify(response,null,2))
-    let entries = response.items
-    let entry = entries[Math.floor(Math.random() * entries.length)]
-    console.log(entry)
-    var twiml = new MessagingResponse();
-    twiml.message(entry.fields.body);
-    console.log(twiml.toString())
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+    console.log(source_number, destination_number, body)
+    if (response.items.length) {
+      let joke = response.items[Math.floor(Math.random() * response.items.length)]
+      console.log(joke.fields.title,joke.fields.body)
+      var twiml = new MessagingResponse();
+      twiml.message(`Here's your joke about ${body}:\n` + joke.fields.body);
+      console.log(twiml.toString())
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+      res.end(twiml.toString());
+    } else {
+      contentful.getEntries({content_type: 'joke'}).then(response => {
+        let joke = response.items[Math.floor(Math.random() * response.items.length)]
+        console.log(joke.fields.title,joke.fields.body)
+        var twiml = new MessagingResponse();
+        twiml.message(`We couldn't find a joke about ${body}, so here's a joke about ${joke.fields.sport.fields.name}:\n` + joke.fields.body);
+        console.log(twiml.toString())
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
+      })
+    }
   }).catch(console.error)
 })
 
