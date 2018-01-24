@@ -23,8 +23,7 @@ export default class AutoComplete extends React.Component {
   componentWillMount() {
     contentfulClient.getEntries({content_type: 'sport'}).then(data => {
       var sports = data.items.length ? data.items.map(x => x.fields.name) : []
-      // console.log(sports)
-      this.setState({ sports: sports });
+      setTimeout(() => this.setState({ sports: sports }), 750)
     })
   }
 
@@ -40,22 +39,22 @@ export default class AutoComplete extends React.Component {
       if (data.items.length) joke = data.items[Math.floor(Math.random() * data.items.length)].fields
       else joke = { body:"sorry no joke for you" }
       this.setState({ joke: joke }, () => {
-        setTimeout(() => this.setState({css_class: "", hidden_class: ""}), 750)
+        setTimeout(() => this.setState({css_class: "animated fadeIn", hidden_class: ""}), 750)
       });
     })
   }
 
   render() {
     let results = this.state.sports.map((result, i) => {
-      return (<li key={i} onClick={this.selectSport}>{result}</li>);
+      return (<li className='animated fadeIn' key={i} onClick={this.selectSport}>{result}</li>);
     });
       return (<div>
         <h1 className='header_text'>Click a sport to get a joke</h1>
         <div className='auto'>
-          <ul className='sports_list'>
+          <ul className='sports_list animated fadeIn'>
             {results}
           </ul>
-        </div>{!this.state.joke ? '' : <div><div className='joke_header_text animated bounceInLeft'>Here's a great {this.state.joke.sport.fields.name.toLowerCase()} joke!</div><ReactMarkdown className={`joke_body ${this.state.css_class}`} source={this.state.joke.body}/></div>}
+        </div>{!this.state.joke ? '' : <div><div className='joke_header_text animated fadeIn'>Here's a great {this.state.joke.sport.fields.name.toLowerCase()} joke!</div><ReactMarkdown className={`joke_body ${this.state.css_class}`} source={this.state.joke.body}/></div>}
       </div>);
   }
 };
