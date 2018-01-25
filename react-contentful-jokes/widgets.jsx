@@ -3,18 +3,11 @@ import ReactDOM from 'react-dom';
 
 import AutoComplete from './autocomplete';
 
-const Sports = [
-  'Baseball',
-  'Basketball',
-  'Football',
-  'Hockey'
-]
-
 class Root extends React.Component {
   render() {
     return(
       <div>
-        <AutoComplete sports={Sports} />
+        <AutoComplete />
       </div>
     );
   }
