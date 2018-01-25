@@ -15,9 +15,11 @@ export default class AutoComplete extends React.Component {
       joke: null,
       sports: [],
       css_class: 'loader',
-      hidden_class: ''
+      hidden_class: 'hidden'
     };
     this.selectSport = this.selectSport.bind(this);
+    this.renderJoke = this.renderJoke.bind(this);
+    this.resetJoke = this.resetJoke.bind(this);
   }
 
   componentWillMount() {
@@ -28,7 +30,7 @@ export default class AutoComplete extends React.Component {
   }
 
   selectSport(event) {
-    this.setState({css_class: 'loader'})
+    this.setState({css_class: 'loader', hidden_class: 'hidden'})
     let sport = event.currentTarget.innerText;
     contentfulClient.getEntries({
       content_type: 'joke',
@@ -44,6 +46,24 @@ export default class AutoComplete extends React.Component {
     })
   }
 
+  renderJoke() {
+    return (
+      <div className='animated fadeIn'>
+        <div className='horizontal-rule'></div>
+        <div className='joke_header_text'>
+          Here's a great {this.state.joke.sport.fields.name.toLowerCase()} joke!
+        </div>
+        <div className={this.state.css_class}>
+          <ReactMarkdown className='joke_body' source={this.state.joke.body} />
+          <div className={`reset ${this.state.hidden_class}`} onClick={this.resetJoke}>Reset</div>
+        </div>
+      </div>
+  )}
+
+  resetJoke() {
+    this.setState({joke: ''})
+  }
+
   render() {
     let results = this.state.sports.map((result, i) => {
       return (<li className='animated fadeIn' key={i} onClick={this.selectSport}>{result}</li>);
@@ -54,7 +74,9 @@ export default class AutoComplete extends React.Component {
           <ul className='sports_list animated fadeIn'>
             {results}
           </ul>
-        </div>{!this.state.joke ? '' : <div><div className='joke_header_text animated fadeIn'>Here's a great {this.state.joke.sport.fields.name.toLowerCase()} joke!</div><ReactMarkdown className={`joke_body ${this.state.css_class}`} source={this.state.joke.body}/></div>}
-      </div>);
+        </div>{!this.state.joke ? '' : this.renderJoke()}
+        <div className='sms'><p>Do you like texting?</p></div>
+      </div>
+      );
   }
 };

@@ -1,8 +1,40 @@
+ul {
+  margin:0;
+  padding:0;
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 li {
   list-style: none;
   cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
+.reset {
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.horizontal-rule {
+  border-bottom: 1px solid black;
+  height: 10px;
+  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
 .header_text, .sports_list, .joke_container, .joke_header_text, .joke_body {
   text-align: center;
 }
@@ -21,6 +53,7 @@ li {
   height: 4em;
 }
 .loader {
+  border:0 !important;
   color: black;
   text-indent: -9999em;
   margin: 88px auto;
@@ -75,4 +108,14 @@ li {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.sms {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+}
+.sms > p {
+  margin: 0 auto;
+  width: 200px;
 }
