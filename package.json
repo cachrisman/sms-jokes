@@ -1,0 +1,42 @@
+{
+  "name": "contentful-sms-jokes",
+  "version": "0.0.1",
+  "description": "Contentful SMS Jokes App",
+  "main": "index.js",
+  "scripts": {
+    "webpack-watch": "webpack -d --watch",
+    "express-server": "nodemon server",
+    "build-dev": "webpack -d",
+    "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "now --public -e NODE_ENV=production && now alias"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cachrisman/contentful-sms-jokes/"
+  },
+  "author": "Charlie Chrisman <charlie@contentful.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "contentful": "^5.1.0",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "twilio": "^3.11.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.14.12",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "webpack": "^3.11.0"
+  }
+}

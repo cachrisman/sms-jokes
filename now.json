@@ -1,0 +1,6 @@
+{
+  "name": "contentful-sms-jokes",
+  "alias": "contentful-sms-jokes.now.sh",
+  "dotenv": true,
+  "public": true
+}
