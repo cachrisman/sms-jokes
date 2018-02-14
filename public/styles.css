@@ -38,6 +38,7 @@ header {
   top: 0;
   padding: .5em 0;
   width: 100%;
+  z-index: 2;
 }
 
 .nav {
@@ -79,6 +80,7 @@ header {
 .content {
   margin: 6em auto 4em auto;
   max-width: 20em;
+  z-index: 1;
 }
 
 ul.sports_list {
@@ -221,7 +223,7 @@ p,
   padding: .5em 0;
   width: 100%;
   background: #eee;
-  z-index: 100;
+  z-index: 2;
 }
 
 .footer>p {
